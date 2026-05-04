@@ -1,36 +1,35 @@
 # GitHub Pages deployment and custom domain DNS
 
+**This repository:** [Octodo-Solutions/ShilpaKruti](https://github.com/Octodo-Solutions/ShilpaKruti)
+
+- Default Pages URL (after Actions deploy succeeds): **https://Octodo-Solutions.github.io/ShilpaKruti/**
+- Custom-domain CNAME target (always this hostname, no repo name in the value): **`Octodo-Solutions.github.io`**
+
 ## 1. Push this repository to GitHub
 
-Create a new repository on GitHub (for example `ShilpaKruti`), then:
+If you already cloned from GitHub, push your branch:
 
 ```bash
-git remote add origin https://github.com/YOUR_USERNAME/ShilpaKruti.git
-git branch -M main
-git push -u origin main
+git push origin main
 ```
 
-Replace `YOUR_USERNAME` and the repo URL with yours.
+Otherwise create the repo on GitHub and add `origin`, then push.
 
 ## 2. Enable GitHub Pages (use GitHub Actions)
 
-1. On GitHub, open the repository → **Settings** → **Pages**.
+1. On GitHub, open **Octodo-Solutions/ShilpaKruti** → **Settings** → **Pages**.
 2. Under **Build and deployment** → **Source**, choose **GitHub Actions** (not “Deploy from a branch”).
 3. The workflow **Deploy GitHub Pages** runs on push to `main` or `master`. Open the **Actions** tab if the first run needs approval.
 
-After a successful run, the site is available at:
-
-- `https://YOUR_USERNAME.github.io/REPOSITORY_NAME/`
-
-Replace `YOUR_USERNAME` and `REPOSITORY_NAME` with your GitHub username and repository name.
+After a successful run, the site is at **https://Octodo-Solutions.github.io/ShilpaKruti/**
 
 ## 3. Map your own domain (DNS)
 
-Add your domain in **Settings** → **Pages** → **Custom domain**, then create the DNS records below at your DNS provider (registrar, Cloudflare, etc.). DNS can take up to 24 hours.
+In **Settings** → **Pages** → **Custom domain**, enter your hostname (for example `www.yourdomain.com` or `yourdomain.com`), then add these records at your DNS provider. DNS can take up to 24 hours.
 
-**Important:** The CNAME target is always `YOUR_USERNAME.github.io` (no `https://`, no repository name in the CNAME value).
+**Important:** CNAME records must point to **`Octodo-Solutions.github.io`** only (no `https://`, no `/ShilpaKruti` in the DNS value).
 
-### Apex domain (`example.com`)
+### Apex domain (`yourdomain.com`)
 
 | Type  | Name / Host | Value                 |
 |-------|-------------|------------------------|
@@ -48,19 +47,19 @@ Optional IPv6:
 | AAAA | `@`         | `2606:50c0:8002::153`     |
 | AAAA | `@`         | `2606:50c0:8003::153`     |
 
-If your DNS provider supports **ALIAS** or **ANAME** on `@`, you may point `@` to `YOUR_USERNAME.github.io` instead of the A/AAAA list (see GitHub’s docs).
+If your DNS provider supports **ALIAS** or **ANAME** on `@`, you may point `@` to **`Octodo-Solutions.github.io`** instead of the A/AAAA list (see GitHub’s docs).
 
-### `www` subdomain (`www.example.com`)
+### `www` subdomain (`www.yourdomain.com`)
 
-| Type  | Name / Host | Value                      |
-|-------|-------------|----------------------------|
-| CNAME | `www`       | `YOUR_USERNAME.github.io`  |
+| Type  | Name / Host | Value                         |
+|-------|-------------|--------------------------------|
+| CNAME | `www`       | `Octodo-Solutions.github.io`   |
 
-### Another subdomain (e.g. `app.example.com`)
+### Another subdomain (e.g. `app.yourdomain.com`)
 
-| Type  | Name / Host | Value                      |
-|-------|-------------|----------------------------|
-| CNAME | `app`       | `YOUR_USERNAME.github.io`  |
+| Type  | Name / Host | Value                         |
+|-------|-------------|--------------------------------|
+| CNAME | `app`       | `Octodo-Solutions.github.io`   |
 
 After DNS resolves, in **Pages** settings enable **Enforce HTTPS** when GitHub offers it.
 
